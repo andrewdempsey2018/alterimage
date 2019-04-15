@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <body>
+
+  <p>Image encoder</p>
+
+  <img src="testImage.jpg" id="testImage" alt="A picture of a beach" width="160" height="213">
+  
+  <canvas id="canvas" width="160" height="213"></canvas>
+
+
+  <form action="makePost.php" method="POST">
+
+      Submit unaltered image: <br>
+        <input type="submit" value="Submit" name="submit">
+
+        <input type="hidden" id="alteredImageData" name="alteredImageData" />
+
+  </form>
+
+	Alter image before submission<br>
+  <button onclick="encode()">Encode</button> 
+
+  <script>
+
+    var canvas = document.getElementById("canvas");
+    var context = canvas.getContext("2d");
+    var image = document.getElementById("testImage");
+
+    window.onload = function()
+    {
+        context.drawImage(image, 0, 0);
+    }
+
+    function encode()
+	{
+		var imgData = context.getImageData(0, 0, 160, 213);
+
+		var i;
+        for (i = 0; i < imgData.data.length; i++)
+		{
+			imgData.data[i] = Math.random() * Math.floor(255);
+		}
+		context.putImageData(imgData, 0, 0);
+
+		document.getElementById("alteredImageData").value = imgData.data;
+    }
+  </script>
+
+</body>
+</html>

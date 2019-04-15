@@ -1,0 +1,38 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <body>
+
+  <p>View</p>
+
+  <script>
+
+    var canvas = document.getElementById("canvas");
+    var context = canvas.getContext("2d");
+    var image = document.getElementById("wenger");
+
+    var wank = document.getElementById("details").value = "Fifth Avenue, New York City";
+
+    window.onload = function()
+    {
+        context.drawImage(image, 0, 0);
+    }
+
+    function encode()
+	{
+		document.getElementById("details").value = "Fifth Avenue, New York City";
+
+		var imgData = context.getImageData(0, 0, 128, 128);
+
+		var i;
+        for (i = 0; i < imgData.data.length; i += 2)
+		{
+			imgData.data[i] = 200;
+		}
+		context.putImageData(imgData, 0, 0);
+
+		document.getElementById("foo").value = imgData.data;
+    }
+  </script>
+
+</body>
+</html>
